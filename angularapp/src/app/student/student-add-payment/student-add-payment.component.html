@@ -1,0 +1,34 @@
+<div class="container  my-5 border shadow p-3 mb-5 bg-white rounded">
+    <h3 class="text-center my-4 font-weight-bold">Add Payment</h3>
+    <form (ngSubmit)="submitPayment(payform)" #payform="ngForm">
+        <div class="form-group">
+            <label for="userName">User Name:</label>
+            <span class="form-control" id="userName" name="userName">{{payment.userName}}</span>
+        </div>
+        <div class="form-group">
+            <label for="amount">Total Amount<span class="text-danger">*</span>:</label>
+            <!-- <input class="form-control" type="text" id="amount" name="amount" [(ngModel)]="payment.amount" /> -->
+            <span class="form-control" name="amount" id="amount" >{{payment.amount}}</span>
+        </div>
+        <div class="form-group">
+            <label for="paymentMode">Mode of Payment<span class="text-danger">*</span>:</label>
+            <select class="form-control" name="paymentMode" id="paymentMode" [(ngModel)]="payment.paymentMode" required>
+                <option value="">Select a payment mode</option>
+                <option *ngFor="let item of paymentOptions" [value]="item">{{ item }}</option>
+            </select>
+            <div class="error text-danger"
+                *ngIf="payform.controls.paymentMode?.invalid && (payform.controls.paymentMode?.dirty || payform.controls.paymentMode?.touched)">
+                Please select a payment mode
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="paymentDate">Payment Date:</label>
+            <span class="form-control" id="paymentDate" name="paymentDate">{{payment.paymentDate |
+                date:'mediumDate'}}</span>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary" [disabled]="payform.invalid">Pay now</button>
+            <button type="button" class="btn btn-secondary mx-2" (click)="goBack()">Cancel</button>
+        </div>
+    </form>
+</div>

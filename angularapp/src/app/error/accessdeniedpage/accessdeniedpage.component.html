@@ -1,0 +1,9 @@
+<div class="notfound">
+  <div class="notfound-404">
+    <h1>Oops!</h1>
+    <h2>401 - Unauthorized Access</h2>
+    <a [routerLink]="['/adminHomePage']" *ngIf="role == 'Admin'">Go To Homepage</a>
+    <a [routerLink]="['/studentHomePage']" *ngIf="role == 'Student'">Go To Homepage</a>
+    <a [routerLink]="['/login']" *ngIf="role == null">Please Login First</a>
+  </div>
+</div>

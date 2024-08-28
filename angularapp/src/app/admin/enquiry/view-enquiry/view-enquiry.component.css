@@ -1,0 +1,86 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+textarea.ng-invalid.ng-touched {
+    border: 1px solid red !important;
+    box-shadow: 0 0 5px 2px rgba(255, 0, 0, 0.5);
+}
+
+.container {}
+
+.parent-modal {}
+
+.scrollTable{
+    overflow-y: auto;
+    max-height: 25rem;
+}
+tr.fixed {
+    top: 0;
+    position: sticky;
+ }
+ ::-webkit-scrollbar {
+    width: 8px; /* Adjust the width as needed */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #888; /* Color of the scrollbar handle */
+}
+
+
+.secondary-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    background-color: #fff;
+
+    border: 1px solid #ddd;
+
+    border-radius: 5px;
+
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 37.5rem;
+
+}
+
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.container.parent-modal .backdrop {
+    opacity: 1;
+}
+
+.modal-content {
+    padding: 20px;
+
+}
+
+.form-group {
+    margin-bottom: 15px;
+
+}
+
+.btn-primary,
+.btn-secondary {
+    margin-left: 5px;
+
+}
+
+.my-custom-textarea {
+    min-width: 19.75rem;
+    max-width: 35.25rem;
+    height: 10rem;
+}

@@ -1,0 +1,15 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red !important;
+  box-shadow: 0 0 5px 2px rgba(255, 0, 0, 0.5);
+}
+
+select.ng-invalid.ng-touched {
+  border: 1px solid red !important;
+  box-shadow: 0 0 5px 2px rgba(255, 0, 0, 0.5);
+}

@@ -1,0 +1,57 @@
+<div class="container mt-5">
+  <div class="container my-4 border shadow p-3 mb-5 bg-white rounded">
+    <h4 class="text-center mt-5">Enquiry
+      <button type="button" class="btn btn-primary" style="float: inline-end; color:white"
+        [routerLink]="['/studentDashboard']">Back to
+        Dashboard</button>
+        <hr>
+    </h4>
+    <div class="scrollTable">
+      <table class="table table-hover rounded">
+        <thead class="thead-dark">
+          <tr class="table-dark fixed">
+            <th>Course Name</th>
+            <th>Description</th>
+            <th>Email</th>
+            <th>Enquiry Type</th>
+            <th>Response</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of enquiries">
+            <td>{{ data.title }}</td>
+            <td>{{ data.description }}</td>
+            <td>{{ data.emailID }}</td>
+            <td>{{ data.enquiryType }}</td>
+            <td *ngIf="(data.enquiryStatus == 'pending')" style="color:red;font-weight: 600;">Not Responded yet</td>
+            <td *ngIf="(data.enquiryStatus == 'responded')" style="color:green  ;font-weight: 600;">{{ data.adminResponse
+              }}</td>
+            <td>
+              <button type="button" class="btn btn-danger" (click)="showConfirmDelete(data.enquiryID)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div class="delete-confirm-modal secondary-modal" *ngIf="showConfirmDeleteModal">
+      <div class="modal-content p-4">
+        <h3>Confirm Delete</h3>
+        <p>
+          Are you sure you want to delete this enquiry? This action cannot be undone.
+        </p>
+        <div class="d-flex justify-content-end mt-3">
+          <button type="button" class="btn btn-secondary" (click)="showConfirmDeleteModal = false">
+            Cancel
+          </button>
+          <button type="button" class="btn btn-danger ms-2 mx-2" (click)="deleteEnquiry(selectedEnquiryID)">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  
+  </div>
+  <div class="backdrop" *ngIf="showConfirmDeleteModal"></div>
+</div>

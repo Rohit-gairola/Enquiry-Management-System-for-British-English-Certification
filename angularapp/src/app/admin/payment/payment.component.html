@@ -1,0 +1,31 @@
+<div class="container my-5 border shadow p-3 mb-5 bg-white rounded">
+    <h3 class="text-center my-4 font-weight-bold">Payment History <button type="button" class="btn btn-danger"
+            style="float: inline-end;" [routerLink]="['/adminDashboard']">Back to Dashboard</button></h3>
+    <div class="alert alert-warning" *ngIf="payments?.length == 0">No Payments yet !</div>
+    <div class="scrollTable" *ngIf="payments?.length != 0">
+        <table class="table table-hover">
+            <thead>
+                <tr class="table-success fixed">
+                    <th>#</th>
+                    <th>Payment ID</th>
+                    <th>User Name</th>
+                    <!-- <th>Status</th> -->
+                    <th>Total Amount</th>
+                    <th>Payment Date</th>
+                    <th>Mode of Payment</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let payment of payments; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ payment.paymentID }}</td>
+                    <td>{{ payment.userName }}</td>
+                    <!-- <td>{{ payment.status }}</td> -->
+                    <td><span class="text text-success p-2">&#8377;</span>{{ payment.amountPaid }}</td>
+                    <td>{{ payment.paymentDate | date:'mediumDate' }}</td>
+                    <td>{{ payment.modeOfPayment }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

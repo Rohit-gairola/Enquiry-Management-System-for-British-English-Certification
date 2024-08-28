@@ -1,0 +1,89 @@
+<div class="container my-5 border shadow p-3 mb-5 bg-white rounded">
+  <h1 class="text-center my-4">Enquiry History <button type="button" class="btn btn-danger" style="float: inline-end;"
+      [routerLink]="['/adminDashboard']">Back to Dashboard</button></h1>
+      <div class="alert alert-warning" *ngIf="enquiryList?.length == 0">No Enquiry raised yet !</div>
+
+  <div class="scrollTable" *ngIf="enquiryList?.length != 0">
+    <table class="table table-hover rounded">
+      <thead>
+        <tr class="table-info fixed">
+          <th>Course Name</th>
+          <th>Description</th>
+          <th>Email</th>
+          <th>Enquiry Type</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let enquiry of enquiryList">
+          <td>{{ enquiry.courseName }}</td>
+          <td>{{ enquiry.Description }}</td>
+          <td>{{ enquiry.Email }}</td>
+          <td>{{ enquiry.EnquiryType }}</td>
+          <td>
+            <span *ngIf="enquiry.EnquiryStatus == 'responded'" style="color: green;font-weight: 600;">Responded</span>
+            <span *ngIf="enquiry.EnquiryStatus == 'pending'"
+              style="color: rgb(121, 121, 12);font-weight: 600;">Pending</span>
+          </td>
+
+          <td>
+            <button type="button" class="btn btn-warning mx-2" (click)="toggleReplyBox(enquiry)">Reply</button>
+            <button type="button" class="btn btn-danger mx-2" (click)="showConfirmDelete(enquiry)">Delete</button>
+          </td>
+          <div class="secondary-modal submit-admin-response" id="editEnquiryModal" *ngIf="showReplyBox">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editEnquiryModalLabel">Reply to Enquiry</h5>
+              <button type="button" class="close" aria-label="Close" (click)="showReplyBox = !showReplyBox">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form (ngSubmit)="submitReply()" #replyform="ngForm">
+                <div class="form-group">
+                  <label for="replyText">Reply <span class="text-danger">*</span> </label>
+                  <!--  <textarea [(ngModel)]="replyText" #replytext="ngModel" name="replyText" id="replyText"
+                  class="form-control my-custom-textarea" rows="5" required maxlength="50" placeholder="Enter your reply"></textarea> -->
+                  <textarea name="description" #replytext="ngModel" name="replyText" id="replyText"
+                    class="form-control my-custom-textarea" rows="5" required maxlength="50"
+                    placeholder="Enter your reply" required [(ngModel)]="replyText"></textarea>
+
+                  <div class="error text-danger" *ngIf="replytext?.invalid && (replytext?.dirty || replytext?.touched)">
+                    Description is required and should not exceed 50 characters.
+                  </div>
+
+                  <!-- <div class="text-danger" *ngIf="replyText?.invalid && (replyText?.touched || replyText?.dirty)">
+                  <div *ngIf="replyText.errors?.required">Reply is required*</div>
+                </div> -->
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary" [disabled]="replyform.invalid">Submit
+                    Reply</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="delete-confirm-modal secondary-modal" *ngIf="deleteToggle">
+            <div class="modal-content p-4">
+              <h3>Confirm Delete</h3>
+              <p>
+                Are you sure you want to delete the enquiry for "{{ selectedEnquiry.courseName }}" with email "{{
+                selectedEnquiry.Email }}"? This action cannot be undone.
+              </p>
+              <div class="d-flex justify-content-end mt-3">
+                <button type="button" class="btn btn-secondary" (click)="deleteToggle = false">Cancel</button>
+                <button type="button" class="btn btn-danger ms-2 mx-2" (click)="deleteEnquiry(enquiry)">Delete</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="backdrop" *ngIf="(deleteToggle)"></div>
+          <div class="backdrop" *ngIf="(showReplyBox)"></div>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

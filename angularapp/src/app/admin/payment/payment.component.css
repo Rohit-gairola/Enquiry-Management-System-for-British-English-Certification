@@ -1,0 +1,15 @@
+.scrollTable{
+    overflow-y: auto;
+    max-height: 25rem;
+}
+tr.fixed {
+    top: 0;
+    position: sticky;
+ }
+ ::-webkit-scrollbar {
+    width: 8px; /* Adjust the width as needed */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #888; /* Color of the scrollbar handle */
+}

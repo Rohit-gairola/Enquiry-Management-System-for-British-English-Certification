@@ -1,0 +1,143 @@
+<div class="container mt-5">
+  <div class="container my-4 border shadow p-3 mb-5 bg-white rounded">
+    <button type="button" class="btn btn-danger" style="float: inline-end;" [routerLink]="['/adminDashboard']">Back to
+      Dashboard</button>
+    <button type="button" class="btn btn-info mx-2" style="float :inline-end" [routerLink]="['/AdminAddCourse']">
+      Add Course
+    </button>
+    <h3 class="text-center my-4">Course List</h3>
+    <div class="scrollTable">
+      <table class="table table-hover rounded">
+        <thead>
+          <tr class="table-info fixed">
+            <th>Course Name</th>
+            <th>Description</th>
+            <th>Duration</th>
+            <th>Cost</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let course of courses">
+            <td>{{ course.courseName }}</td>
+            <td>{{ course.description }}</td>
+            <td>{{ course.duration }}</td>
+            <td>{{ course.amount }}</td>
+            <td>
+              <button type="button" class="btn btn-warning" (click)="toggleShowEditDiv(course)">
+                Edit
+              </button>
+              &nbsp;
+              <button type="button" class="btn btn-danger" (click)="showConfirmDelete(course)">
+                Delete
+              </button>
+              &nbsp;
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- edit modal for edit the user -->
+  <div class="container" [ngClass]="{ 'parent-modal': showEditDiv }">
+    <div>
+      <div class="editForm secondary-modal" *ngIf="showEditDiv">
+        <div class="modal-content">
+          <div class="container border shadow-lg p-3 mb-2 bg-white rounded mt-2">
+            <div class="modal-header">
+              <h3>Edit Course Details</h3>
+              <button type="button" class="btn btn-danger" style="right: 9.5vh;position: absolute;"
+                (click)="(showEditDiv =!showEditDiv)">Close</button>
+            </div>
+            <form (ngSubmit)="editCourse()" #form="ngForm">
+              <div class="form-group">
+                <label for="courseName">Course Name<span class="text text-danger">*</span>
+                </label>
+                <input class="form-control" type="text" name="courseName" id="courseName"
+                  [(ngModel)]="newcourse.courseName" #courseName="ngModel" required />
+                <div class="text-danger" *ngIf="
+                      courseName?.invalid &&
+                      (courseName?.touched || courseName?.dirty)
+                    ">
+                  <div class="error" *ngIf="courseName.errors?.required">
+                    Course Name is required*
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="description">Description<span class="text text-danger">*</span></label>
+                <input class="form-control" type="text" name="description" id="description"
+                  [(ngModel)]="newcourse.description" #description="ngModel" required />
+                <div class="text-danger" *ngIf="
+                      (description?.invalid && description?.touched) ||
+                      description?.dirty
+                    ">
+                  <div class="error" *ngIf="description.errors?.required">
+                    Description is required*
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="duration">Duration<span class="text text-danger">*</span></label>
+                <input class="form-control" type="text" name="duration" id="duration" [(ngModel)]="newcourse.duration"
+                  #duration="ngModel" required />
+                <div class="text-danger" *ngIf="
+                      (duration?.invalid && duration?.touched) || duration?.dirty
+                    ">
+                  <div class="error" *ngIf="duration.errors?.required">
+                    Duration is required*
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="amount">amount<span class="text text-danger">*</span></label>
+                <input class="form-control" type="number" name="amount" id="amount" [(ngModel)]="newcourse.amount"
+                  #amount="ngModel" required pattern="^[0-9]+$" (keydown)="onKeyDown($event)" />
+                <div class="text-danger" *ngIf="amount?.invalid && (amount?.touched || amount?.dirty)">
+                  <div class="error" *ngIf="amount.errors?.pattern">
+                    amount can only be a positive number.
+                  </div>
+                  <div class="error" *ngIf="amount.errors?.required">
+                    amount is required*
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-success" [disabled]="form.invalid" [ngStyle]="{
+                    cursor: form.invalid ? 'not-allowed' : 'pointer',
+                    'background-color': form.invalid ? 'grey' : '',
+                    'border-color': form.invalid ? 'grey' : ''
+                  }">
+                  Save Changes
+                </button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="backdrop" *ngIf="showEditDiv"></div>
+    </div>
+  </div>
+  <!-- delete modal for confirm delete -->
+  <div class="delete-confirm-modal secondary-modal" *ngIf="deleteToggle">
+    <div class="modal-content p-4">
+      <h3>Confirm Delete</h3>
+      <p>
+        Are you sure you want to delete the course "{{
+        selectedCourse.courseName
+        }}"? This action cannot be undone.
+      </p>
+      <div class="d-flex justify-content-end mt-3">
+        <button type="button" class="btn btn-secondary" (click)="deleteToggle = false">
+          Cancel
+        </button>
+        <button type="button" class="btn btn-danger ms-2 mx-2" (click)="deleteCourse(selectedCourse)">
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="backdrop" *ngIf="deleteToggle"></div>
+</div>

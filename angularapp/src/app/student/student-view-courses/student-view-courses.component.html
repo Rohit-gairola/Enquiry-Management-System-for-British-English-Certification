@@ -1,0 +1,42 @@
+<div class="container my-4 border shadow p-3 mb-5 bg-white rounded">
+    <h3 class="text-center my-4">Courses
+        <button type="button" class="btn btn-danger" style="float: inline-end;"
+            [routerLink]="['/studentDashboard']">Back to Dashboard</button>
+    </h3>
+    <div class="scrollTable">
+        <table class="table table-hover rounded">
+            <thead>
+                <tr class="table-info fixed">
+                    <th>Course Name</th>
+                    <th>Description</th>
+                    <th>Duration</th>
+                    <th>Cost</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of filteredCourses">
+                    <td>{{data.courseName}}</td>
+                    <td>{{data.description}}</td>
+                    <td>{{data.duration}}</td>
+                    <td>{{data.amount}}</td>
+                    <td>
+                        <button type="" class="btn btn-primary" (click)="selectCourse(data.courseID,$event)"
+                            [routerLink]="['/studentAddEnquiry']">Enroll in the course</button>
+                    </td>
+                </tr>
+                <tr *ngFor="let data of enrolledcourses">
+                    <td>{{data.courseName}}</td>
+                    <td>{{data.description}}</td>
+                    <td>{{data.duration}}</td>
+                    <td>{{data.amount}}</td>
+                    <td>
+                        <button disabled="disabled" class="btn btn-success">
+                            <span class="text h5">Enrolled</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

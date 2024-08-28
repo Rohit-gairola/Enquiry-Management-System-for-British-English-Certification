@@ -1,0 +1,49 @@
+<div class="bg-light">
+  <div class="row" style="margin-right: 0px;">
+    <div class="col-md-4 h5" style="line-height: 2.5;"><b>BEC Enquiry Management System</b></div>
+    <div class="col-md-4 font-weight-bold" *ngIf="(role != '')">
+      <p style="line-height: 1.5; margin-top: 16px;">Welcome {{username | uppercase}} / {{role}}</p>
+    </div>
+
+    <div class="col-md-4 font-weight-bold" *ngIf="(role == '')"> </div>
+
+    <!-- <div class="col-md-1"></div> -->
+    <div class="col-md-4">
+      <div class="row" style="justify-content: end;" *ngIf="role == 'Admin'">
+        <div class="col-md-3">
+          <button class="btn rlinks" routerLink="/adminHomePage">Home</button>
+        </div>
+        <div class="col-md-3">
+          <button class="btn rlinks" routerLink="/adminDashboard">Admin</button>
+        </div>
+        <div class="col-md-3">
+          <button class="btn rlinks" routerLink="/viewStudent">Student</button>
+        </div>
+        <div class="col-md-3">
+          <button class="btn rlinks" (click)="logout()">Logout</button>
+        </div>
+      </div>
+      <div class="row" style="justify-content: end;" *ngIf="role == 'Student'">
+        <div class="col-md-4">
+          <button class="btn rlinks" routerLink="/studentHomePage" (click)="clearEnq()">Home</button>
+        </div>
+        <div class="col-md-4">
+          <button class="btn rlinks" routerLink="studentDashboard" (click)="clearEnq()">Student</button>
+        </div>
+        <div class="col-md-4">
+          <button class="btn rlinks" (click)="logout()">Logout</button>
+        </div>
+      </div>
+      <div class="row" style="justify-content: end;" *ngIf="role == ''">
+        <div class="col-md-6">
+          <button class="btn rlinks" routerLink="/login">Login</button>
+        </div>
+        <div class="col-md-6">
+          <button class="btn rlinks" routerLink="/register">Register</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- <p class="alert alert-warning">Welcome {{username | uppercase}} / {{role}}</p> -->

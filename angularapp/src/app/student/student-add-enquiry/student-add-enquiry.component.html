@@ -1,0 +1,54 @@
+<div class="container border shadow-lg p-3 mb-5 bg-white rounded mt-5">
+    <h3>Add Enquiry Details </h3>
+    <hr>
+    <div class="text-warning text-center h5" *ngIf="errormsg != null">{{errormsg}}</div>
+    <form (ngSubmit)="onSubmit(form)" #form="ngForm">
+        <div class="form-group">
+            <label for="courseName">Course Name<span class="text-danger">*</span>:</label>
+            <span *ngIf="selectedCourse" class="form-control">
+                {{ selectedCourse }}
+            </span>
+            <!-- <ng-container *ngIf="(enquiry.courseID === '') || !enquiry.courseID"> -->
+            <ng-container *ngIf="selectedCourse == null">
+                <select [(ngModel)]="enquiry.courseID" name="courseName" id="courseName" class="form-control" required>
+                    <option value=null>Select a course</option>
+                    <option *ngFor="let course of courses" [value]="course?.courseID">{{course?.courseName}}</option>
+                </select>
+            </ng-container>
+            <div class="error text-danger"
+                *ngIf="form.controls['courseID']?.invalid && (form.controls['courseID']?.dirty || form.controls['courseID']?.touched)">
+                Please select a course name.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="description">Description<span class="text-danger">*</span>:</label>
+            <textarea name="description" #description="ngModel" id="description" cols="5" rows="5" class="form-control"
+                required [(ngModel)]="enquiry.description"></textarea>
+            <div class="text text-danger"
+                *ngIf="form.controls['description']?.touched || form.controls['description']?.dirty">
+                <div *ngIf="form.controls['description'].errors?.required">
+                    Description for the enquiry is required.
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="emailID">Email ID:</label>
+            <span name="emailID" id="emailID" class="form-control">{{enquiry.emailID}}</span>
+        </div>
+        <div class="form-group">
+            <label for="enquiryType">Enquiry Type<span class="text-danger">*</span></label>
+            <select [(ngModel)]="enquiry.enquiryType" name="enquiryType" id="enquiryType" class="form-control" required>
+                <option value="">Select enquiry type</option>
+                <option *ngFor="let enquiry of enquiries" [value]="enquiry">{{enquiry}}</option>
+            </select>
+            <div class="error text-danger"
+                *ngIf="form.controls['enquiryType']?.invalid && (form.controls['enquiryType']?.dirty || form.controls['enquiryType']?.touched)">
+                Please select an enquiry type.
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid"
+            [ngStyle]="{'cursor':form.invalid?'not-allowed':'pointer','background-color':form.invalid?'grey':'','border-color':form.invalid?'grey':''}">Submit</button>
+        <button type="button" class="btn btn-danger mx-2" (click)="goBack($event)">Cancel</button>
+    </form>
+</div>

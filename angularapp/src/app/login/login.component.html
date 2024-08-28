@@ -1,0 +1,66 @@
+<!-- <div class="container border shadow-lg p-3 mb-5 bg-white rounded mt-5" style="max-width: 32rem"> -->
+<div class="container border shadow-lg p-3 mb-5 bg-white rounded mt-5">
+
+  <div class="row">
+
+    <div class="col-md-6">
+      <h2 style="color: #5d3fd3">Login</h2>
+
+      <div class="form-group" *ngIf="!userNotFound">
+        <div class="alert alert-success" role="alert">
+          <h4 class="alert-heading">Welcome</h4>
+        </div>
+      </div>
+      <div class="form-group" *ngIf="userNotFound">
+        <div class="alert alert-danger" role="alert">
+          <h4 class="alert-heading">Invalid Credentials</h4>
+          <hr>
+          <p class="mb-0">Username or Password is incorrect.</p>
+        </div>
+      </div>
+      <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+        <div class="form-group">
+          <label for="email">Email Address <span class="text text-danger">*</span></label>
+          <input type="email" name="email" id="email" [(ngModel)]="user.email" class="form-control" #email="ngModel"
+            required email />
+          <div class="error text-danger" *ngIf="
+              loginForm.controls['email']?.invalid &&
+              loginForm.controls['email']?.touched
+            " class="text-danger">
+            <div *ngIf="email.errors.required">email is required!</div>
+            <div *ngIf="email.errors.email">
+              Please enter a valid email address.
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">Password <span class="text text-danger">*</span></label>
+          <input type="password" name="password" id="password" [(ngModel)]="user.password" class="form-control"
+            #password="ngModel" required minlength="8" />
+          <div class="error" style="color: red" *ngIf="
+              loginForm.controls['password']?.invalid &&
+              loginForm.controls['password']?.touched
+            " class="text-danger">
+            <div *ngIf="password.errors.required">Password is Required</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-success form-control" [disabled]="loginForm.invalid"
+            [ngStyle]="{'cursor':loginForm.invalid?'not-allowed':'pointer','background-color':loginForm.invalid?'grey':'','border-color':loginForm.invalid?'grey':''}">
+            Login
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-6 auth">
+      <div style="display: flex; align-items: center; justify-content: center; height: 100vh;">
+        <div class="form-group" style="text-align: center; max-height: fit-content;">
+          <h4 for="register" style="font-size: -webkit-x-large;">Create your account</h4>
+          <p style="color: whitesmoke;">Begin your learning journey by creating an account.</p>
+          <a routerLink="/register" class="btn btn-info form-control my-5" style="font-size:large;">Register</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

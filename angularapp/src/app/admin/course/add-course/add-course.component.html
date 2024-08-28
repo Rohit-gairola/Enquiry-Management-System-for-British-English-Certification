@@ -1,0 +1,51 @@
+<div class="container border shadow-lg p-3 mb-5 bg-white rounded mt-5">
+    <!-- <h3>Add Course Details  <button type="button" class="btn btn-info" style="float: inline-end;" [routerLink]="['/AdminViewCourse']">View Courses</button></h3>    -->
+    <h3>Add Course Details</h3>
+    <form (ngSubmit)="addCourse()" #form="ngForm">
+        <div class="form-group">
+            <label for="courseName">Course Name<span class="text text-danger">*</span> </label>
+            <input placeholder="Enter Course Name" class="form-control" type="text" name="courseName" id="courseName" [(ngModel)]="course.courseName"
+                #courseName="ngModel" required>
+            <div class="text-danger" *ngIf="courseName?.invalid && (courseName?.touched || courseName?.dirty) ">
+                <div class="error" *ngIf="courseName.errors?.required"> Course Name is required*</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="description">Description<span class="text text-danger">*</span></label>
+            <textarea placeholder="Enter description for course" class="form-control" name="description" id="description" [(ngModel)]="course.description"
+                #description="ngModel" required cols="1" rows="5"></textarea>
+            <div class="text-danger" *ngIf="description?.invalid && description?.touched || description?.dirty ">
+
+                <div class="error" *ngIf="description.errors?.required"> Description is required*</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="duration">Duration<span class="text text-danger">*</span></label>
+            <input placeholder="Enter Course Duration" class="form-control" type="text" name="duration" id="duration" [(ngModel)]="course.duration"
+                #duration="ngModel" required>
+            <div class="text-danger" *ngIf="duration?.invalid && duration?.touched || duration?.dirty ">
+
+                <div class="error" *ngIf="duration.errors?.required"> Duration is required*</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="amount">Amount<span class="text text-danger">*</span></label>
+            <input placeholder="Enter Course amount" class="form-control" type="number" name="amount" id="amount" [(ngModel)]="course.amount"
+                #amount="ngModel" required pattern="^[0-9]+$" (keydown)="onKeyDown($event)">
+            <div class="text-danger" *ngIf="amount?.invalid && (amount?.touched || amount?.dirty)">
+                <div class="error" *ngIf="amount.errors.required">
+                    Amount is required*
+                </div>
+                <div class="error" *ngIf="amount.errors.pattern">
+                    Cost can only be a positive number.
+                </div>
+            </div>
+
+        </div>
+
+        <button type="submit" class="btn btn-success" [disabled]="form.invalid"
+            [ngStyle]="{'cursor':form.invalid?'not-allowed':'pointer','background-color':form.invalid?'grey':'','border-color':form.invalid?'grey':''}">Add
+            Course</button>
+        <button type="button" class="btn btn-secondary" (click)="goBack()">Cancel</button>
+    </form>
+</div>
